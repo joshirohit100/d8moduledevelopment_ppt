@@ -6,7 +6,8 @@ Reveal.initialize({
     history: true,
     center: true,
     transition: 'slide', // none/fade/slide/convex/concave/zoom
-    parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    //parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    parallaxBackgroundImage: 'custom/reveal-parallax-1.jpg',
 
     // Optional reveal.js plugins
     dependencies: [
