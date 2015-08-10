@@ -125,7 +125,9 @@
 
             <section>
                 <h2>Old Drupal 7 Way</h2>
-                <pre>
+                <pre class="fragment">
+                <code>hook_menu() { }</code></pre>
+                <pre class="fragment">
                     <code class="php" data-trim="">
                        $items['my-dummy-path'] = array(
   'title' => 'My Dummy Callback',
@@ -135,16 +137,20 @@
 );
                     </code>
                 </pre>
+                <pre class="fragment"><code>function my_dummy_page_callback() {
+       return 'Hello friends';
+}</code></pre>
             </section>
 
             <section>
                 <section>
                     <h2>Drupal 8 Way</h2>
-                    <pre>
-                        <code class="php" data-trim="">
+                    <h3 class='fragment'><strike> Hook Menu</strike></h3>
+                    <pre class='fragment'><code class="php" data-trim="">
                             dummy.routing.yml
-                        </code>
-                        <code data-trim="" style="width:130%;">
+                        </code></pre>
+                    <pre class='fragment'>
+                        <code class="php" data-trim="" style="width:130%;">
   dummy.my_controller:
     path: '/my-dummy-path'
     defaults:
@@ -192,6 +198,146 @@ class MyDummyController extends ControllerBase {
 }
                         </code>
                     </pre>
+                </section>
+
+            </section>
+
+            <section>
+                <h1>Form</h1>
+            </section>
+
+            <section>
+                <h2>Old Drupal 7 Way</h2>
+                <pre class="fragment">
+                <code>hook_menu() { }</code></pre>
+                <pre class="fragment">
+                    <code class="php" data-trim="">
+                       $items['my-dummy-path'] = array(
+  'page callback' => 'drupal_get_form',
+  'page arguments' => 'my_dummy_form',
+);
+                    </code>
+                </pre>
+                <pre class="fragment"><code>function my_dummy_form() {
+       $form = array();
+       $form['my-name'] = array();
+       return $form;
+}</code></pre>
+            <pre class="fragment">
+                <code>Validation Handler :- my_dummy_form_validate();
+Submit Handler :- my_dummy_form_submit();
+                </code>
+            </pre>
+            </section>
+
+            <section>
+                <section>
+                    <h2>Drupal 8 Way</h2>
+                    <h3 class='fragment'><strike> Hook Menu</strike></h3>
+                    <pre class='fragment'><code class="php" data-trim="">
+                            dummy.routing.yml
+                        </code></pre>
+                    <pre class='fragment'>
+                        <code class="php" data-trim="" style="width:130%;">
+  dummy.my_form:
+    path: '/my-dummy-form'
+    defaults:
+      _form: 'Drupal\dummy\Form\MyDummyForm'
+      _title: 'My Dummy Form'
+    requirements:
+      _permission: 'access content'
+                        </code>
+                    </pre>
+            </section>
+
+                <section>
+                    <h2>Form file location</h2>
+                    <h2>
+                        <pre>
+                            <code data-trim="">
+                                dummy/src/Form/MyDummyForm.php
+                            </code>
+                        </pre>
+                    </h2>
+                </section>
+
+                <section>
+                    <h3>MyDummyForm.php file</h3>
+                    <pre style="width: 100%;">
+                        <code data-trim="" style="max-height: 600px;">
+/**
+ * @file
+ * Contains \Drupal\dummy\Form\MyDummyForm
+ */
+
+namespace Drupal\dummy\Form;
+
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
+
+class MyDummyForm extends FormBase {
+
+  public function getFormId() {
+    return 'my_dummy_form';
+  }
+
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    return $form;
+  }
+
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+
+  }
+
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+  }
+
+}
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Form Builder</h2>
+                    <pre>
+                        <code>
+public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Name'),
+    );
+    .
+    .
+    .
+  return $form;
+);
+</code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Form Validation</h2>
+                    <pre>
+                    <code>
+public function validateForm(array &$form, FormStateInterface $form_state) {
+    $name = $form_state->getValue('name');
+    if (empty($name)) {
+      $form_state->setErrorByName('name', $this->t('Name field is required and can not be blank.'));
+    }
+  }
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Form Submission</h2>
+                    <pre>
+                    <code>
+public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Logic goes here.
+    drupal_set_message($this->t('Thankyou for submitting the form'));
+}
+                    </code></pre>
                 </section>
 
             </section>
