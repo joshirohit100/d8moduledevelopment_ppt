@@ -39,7 +39,6 @@
                     <h2>Class</h2>
                     <h2>Object / Instance</h2>
                     <h2>Inheritance</h2>
-                    <h2>Polymorphism</h2>
                 </section>
             </section>
 
@@ -99,9 +98,9 @@
                     <pre>
                         <code class="php" data-trim="">
                             name = D7 Dummy
-                            description = Dummy module for exploring drupal 8.
-                            version = VERSION
-                            core = 7.x
+description = Dummy module for exploring drupal 8.
+version = VERSION
+core = 7.x
                         </code>
                     </pre>
                 </section>
@@ -110,10 +109,10 @@
                     <pre>
                         <code class="php" data-trim="">
                             name: D8 Dummy
-                            description: Dummy module for exploring drupal 8.
-                            type: module
-                            version: VERSION
-                            core: 8.x
+description: Dummy module for exploring drupal 8.
+type: module
+version: VERSION
+core: 8.x
                         </code>
                     </pre>
                 </section>
@@ -145,7 +144,7 @@
             <section>
                 <section>
                     <h2>Drupal 8 Way</h2>
-                    <h3 class='fragment'><strike> Hook Menu</strike></h3>
+                    <h3 class='fragment strike'>Hook Menu</h3>
                     <pre class='fragment'><code class="php" data-trim="">
                             dummy.routing.yml
                         </code></pre>
@@ -340,6 +339,99 @@ public function submitForm(array &$form, FormStateInterface $form_state) {
                     </code></pre>
                 </section>
 
+            </section>
+
+            <section>
+                <h1>Blocks</h1>
+            </section>
+
+            <section>
+                <section>
+                <h1>Block in Drupal 7</h1>
+                <h2 class='fragment'>hook_block_info()</h2>
+                <pre class="fragment">
+                    <code>
+function hook_block_info() {
+  $blocks['my_dummy_block'] = array(
+    'info' => t('Dummy Block'),
+  );
+  return $blocks;
+}
+                    </code>
+                </pre>
+                </section>
+                <section>
+                    <h2>hook_block_view()</h2>
+                     <pre class="fragment">
+                    <code>
+function hook_block_view($delta = '') {
+  switch ($delta) {
+    case 'my_dummy_block':
+      $block['subject'] = t('Dummy block subject');
+      $block['content'] = t('This is my dummy block content.');
+      break;
+  }
+  return $block;
+}
+                    </code>
+                </pre>
+                </section>
+            </section>
+
+            <section>
+                    <h1>Drupal 8 block</h1>
+                    <h2 class='fragment'>Block are plugin in D8</h2>
+            </section>
+
+            <section>
+                <section>
+                    <h1>Block Files Location</h1>
+                    <h2 class='fragment'>
+                        <pre>
+                            <code data-trim=''>
+                                my_module/src/Plugin/Block/*
+                            </code>
+                        </pre>
+                    </h2>
+                </section>
+                <section>
+                    <h2>Dummy Block</h2>
+                    <p class="fragment">my_module/src/Plugin/Block/MyDummyBlock.php</p>
+                    <pre class="fragment">
+                        <code>
+/**
+ * Provides a 'Dummy' block.
+ *
+ * @Block (
+ *   id = "my_dummy_block",
+ *   admin_label = @Translation("My Dummy Block"),
+ * )
+ */
+class MyDummyBlock extends BlockBase {
+  /**
+   * {@inheritdoc}
+   */
+  public function build() {
+    return array(
+      '#type' => 'markup',
+      '#markup' => $this->t("This is my dummy block"),
+    );
+  }
+}
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <pre>
+                        <code>
+ *  @Block (
+ *    id = "my_dummy_block",
+ *    admin_label = @Translation("My Dummy Block"),
+ * )
+                        </code>
+                    </pre>
+                    <p class="fragment">hook_block_info() replace by Annotation</p>
+                </section>
             </section>
 
             <section>
