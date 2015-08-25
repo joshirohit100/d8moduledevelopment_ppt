@@ -12,6 +12,6 @@ All these with comparision of Drupal 7
 
 To see the presentation - 
 
-1. Just clone this repo on local
+1. Just clone this repo on local.
 2. Hit index.html on browser.
-3. Enjoy
+3. Enjoy.
