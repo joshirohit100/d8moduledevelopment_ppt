@@ -3,9 +3,9 @@
 Reveal.js presentation for creating module in D8 for drupal meetup
 
 Covers - 
-
- 1. Custom menu route (simple)
- 2. Configuration form
- 3. Block
+ 1. Drupal 8 module structure
+ 2. Custom menu route (simple)
+ 3. Form building
+ 4. Block
  
-With Drupal 8 directory structure.
+All these with comparision of Drupal 7
