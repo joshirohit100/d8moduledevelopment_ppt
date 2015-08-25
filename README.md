@@ -1,5 +1,3 @@
-# d8moduledevelopment_ppt
-
 Presentation for creating module in D8 for drupal meetup
 
 Covers - 
